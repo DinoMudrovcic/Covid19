@@ -2,10 +2,8 @@ package com.dinomudrovcic.bisscovid.services;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,9 +37,6 @@ public class StatisticsService {
 	private WebClient.Builder builder;
 
 	public Statistics getStatisticsByCountryName(String countryName) {
-
-		
-		
 		return null;
 	}
 	
@@ -95,7 +90,6 @@ public class StatisticsService {
 		if (!(checkDate(dateFromStr) && checkDate(dateToStr))) {
 			return null;
 		}
-		
 		
 		LocalDate dateFrom = LocalDate.parse(dateFromStr);
 		LocalDate dateTo = LocalDate.parse(dateToStr);

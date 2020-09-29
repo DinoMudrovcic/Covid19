@@ -18,17 +18,9 @@ public class BissCovidApplication {
 	public WebClient.Builder getWebClientBuilder() {
 		return WebClient.builder();
 	}
-	
-//	@Autowired
-//	private DataService dataService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(BissCovidApplication.class, args);
 	}
-	
-//	@EventListener(ApplicationReadyEvent.class)
-//	public void loadData() {
-//		dataService.loadData();
-//	}
 
 }
