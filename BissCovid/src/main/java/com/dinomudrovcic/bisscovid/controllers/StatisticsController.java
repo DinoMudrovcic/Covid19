@@ -25,11 +25,28 @@ public class StatisticsController {
 	@Autowired
 	private StatisticsService service;
 	
+	@GetMapping("/{countryName}")
+	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+	public ResponseEntity<Statistics> getStatistics(@PathVariable String countryName) {
+		return new ResponseEntity<>(service.getStatisticsByCountryName(countryName), HttpStatus.OK);
+	}
+	
 	@PostMapping("/add")
 	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 	public ResponseEntity<HttpStatus> add(@RequestBody Statistics statistics){
 		try {
 			service.saveStatistics(statistics);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@PostMapping("/addList")
+	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+	public ResponseEntity<HttpStatus> addList(@RequestBody List<Statistics> statisticsList){
+		try {
+			service.saveStatisticsList(statisticsList);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
@@ -47,11 +64,33 @@ public class StatisticsController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
+	@PutMapping("/updateList")
+	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+	public ResponseEntity<HttpStatus> updateList(@RequestBody List<Statistics> statisticsList){
+		try {
+			service.updateStatisticsList(statisticsList);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
 	@DeleteMapping("/delete")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<HttpStatus> delete(@RequestBody Statistics statistics){
 		try {
 			service.deleteStatisticsById(statistics.getId());
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/deleteList")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public ResponseEntity<HttpStatus> deleteList(@RequestBody List<Statistics> statisticsList){
+		try {
+			service.deleteStatisticsList(statisticsList);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
