@@ -69,24 +69,24 @@ public class DataService {
 			}
 		});
 		
-		for (int i = 0; i < 3; i++) {
-			Country country = countries.get(i);
-			String countryName = country.getName();
-			HistoryResponse historyResponse = webClientBuilder.build()
-					.get()
-					.uri(EndpointConstants.HISTORY_ENDPOINT + "?country=" + countryName)
-					.header(EndpointConstants.RAPIDAPI_HOST_NAME, EndpointConstants.RAPIDAPI_HOST_VALUE)
-					.header(EndpointConstants.RAPIDAPI_KEY_NAME, EndpointConstants.RAPIDAPI_KEY_VALUE)
-					.retrieve()
-					.bodyToMono(HistoryResponse.class)
-					.block();
-			List<Statistics> historyList = historyResponse.getResponse();
-			if (!historyList.isEmpty()) {
-				historyList.stream().forEach(history -> {
-					saveStatisticToDatabase(history, country);
-				});
-			}
-		}
+//		for (int i = 0; i < 3; i++) {
+//			Country country = countries.get(i);
+//			String countryName = country.getName();
+//			HistoryResponse historyResponse = webClientBuilder.build()
+//					.get()
+//					.uri(EndpointConstants.HISTORY_ENDPOINT + "?country=" + countryName)
+//					.header(EndpointConstants.RAPIDAPI_HOST_NAME, EndpointConstants.RAPIDAPI_HOST_VALUE)
+//					.header(EndpointConstants.RAPIDAPI_KEY_NAME, EndpointConstants.RAPIDAPI_KEY_VALUE)
+//					.retrieve()
+//					.bodyToMono(HistoryResponse.class)
+//					.block();
+//			List<Statistics> historyList = historyResponse.getResponse();
+//			if (!historyList.isEmpty()) {
+//				historyList.stream().forEach(history -> {
+//					saveStatisticToDatabase(history, country);
+//				});
+//			}
+//		}
 		
 		//iterate through countries and get response for current statistics and history data
 		countries.stream().forEach(country -> {
