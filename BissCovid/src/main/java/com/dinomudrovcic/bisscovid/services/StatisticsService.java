@@ -44,10 +44,10 @@ public class StatisticsService {
 	public void deleteStatisticsById(Long id) {
 		Statistics statistics = statisticsRepository.findById(id).orElse(null);
 		if (statistics != null) {
+			statisticsRepository.deleteById(id);
 			casesRepository.deleteById(statistics.getCases().getId());
 			deathsRepository.deleteById(statistics.getDeaths().getId());
 			testsRepository.deleteById(statistics.getTests().getId());
-			statisticsRepository.deleteById(id);
 		}
 	}
 	
